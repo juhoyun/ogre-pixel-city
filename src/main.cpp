@@ -10,9 +10,9 @@ class TestListener : public ExampleFrameListener
 protected:
 
 public:
-    TestListener(RenderWindow* win, Camera* cam)
-        : ExampleFrameListener(win, cam)
-    {
+	TestListener(RenderWindow* win, Camera* cam)
+		: ExampleFrameListener(win, cam)
+	{
 	}
 };
 
@@ -39,11 +39,11 @@ protected:
 	}
 
 	void createFrameListener(void)
-    {
+	{
 		// This is where we instantiate our own frame listener
-        mFrameListener = new TestListener(mWindow, mCamera);
-        mRoot->addFrameListener(mFrameListener);
-    }
+		mFrameListener = new TestListener(mWindow, mCamera);
+		mRoot->addFrameListener(mFrameListener);
+	}
 
 	void createScene()
 	{
@@ -53,14 +53,14 @@ protected:
 
 		// Floor plane 
 		mPlane = new MovablePlane("Ground Plane");
-        mPlane->normal = Vector3::UNIT_Y;
-        mPlane->d = 0;
-        MeshManager::getSingleton().createPlane("Myplane",
-            ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *mPlane,
-            WORLD_SIZE+50,WORLD_SIZE+50,1,1,true,1,1,1,Vector3::UNIT_Z);
-        Entity* ent = mSceneMgr->createEntity( "plane", "Myplane" );
-        ent->setMaterialName("Ground_Material");
-        mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+		mPlane->normal = Vector3::UNIT_Y;
+		mPlane->d = 0;
+		MeshManager::getSingleton().createPlane("Myplane",
+			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *mPlane,
+			WORLD_SIZE+50,WORLD_SIZE+50,1,1,true,1,1,1,Vector3::UNIT_Z);
+		Entity* ent = mSceneMgr->createEntity( "plane", "Myplane" );
+		ent->setMaterialName("Ground_Material");
+		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 
 		AppInit();
 
@@ -85,20 +85,20 @@ INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 int main(int argc, char **argv)
 #endif
 {
-    // Create application object
-    TestApplication app(strCmdLine);
+	// Create application object
+	TestApplication app(strCmdLine);
 
-    try {
-        app.go();
-    } catch( Exception& e ) {
+	try {
+		app.go();
+	} catch( Exception& e ) {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+		MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
 #else
-        std::cerr << "An exception has occured: " << e.getFullDescription();
+		std::cerr << "An exception has occured: " << e.getFullDescription();
 #endif
-    }
+	}
 
-    return 0;
+	return 0;
 }
 
 #ifdef __cplusplus
