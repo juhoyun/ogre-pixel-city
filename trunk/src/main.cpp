@@ -57,7 +57,7 @@ protected:
         mPlane->d = 0;
         MeshManager::getSingleton().createPlane("Myplane",
             ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *mPlane,
-            1050,1050,1,1,true,1,1,1,Vector3::UNIT_Z);
+            WORLD_SIZE+50,WORLD_SIZE+50,1,1,true,1,1,1,Vector3::UNIT_Z);
         Entity* ent = mSceneMgr->createEntity( "plane", "Myplane" );
         ent->setMaterialName("Ground_Material");
         mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
