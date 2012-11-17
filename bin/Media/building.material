@@ -1,0 +1,23 @@
+material Ground_Material
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.8 0.8 0.8
+			diffuse 0.2 0.2 0.2
+		}
+	}
+}
+
+material Building_Material
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.33 
+			diffuse 0.7 0.7 0.67
+		}
+	}
+}
