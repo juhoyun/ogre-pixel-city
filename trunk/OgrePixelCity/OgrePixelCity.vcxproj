@@ -53,8 +53,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../src/OgreFramework;../src/PixelCity;$(BOOST_DIR);$(OGRE173)/OgreMain/include;$(OGRE173)/build/include;$(OGRE173)/dependencies/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SSAO_SUPPORT;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../src/OgreFramework;../src/PixelCity;../src/SSAO/include;$(BOOST_DIR);$(OGRE173)/OgreMain/include;$(OGRE173)/build/include;$(OGRE173)/dependencies/include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -72,9 +72,10 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../src/OgreFramework;../src/PixelCity;$(BOOST_DIR);$(OGRE173)/OgreMain/include;$(OGRE173)/build/include;$(OGRE173)/dependencies/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SSAO_SUPPORT;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../src/OgreFramework;../src/PixelCity;../src/SSAO/include;$(BOOST_DIR);$(OGRE173)/OgreMain/include;$(OGRE173)/build/include;$(OGRE173)/dependencies/include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4819</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
