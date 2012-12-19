@@ -316,6 +316,10 @@ void Ogre_Mesh::Compile()
 	_ogreMesh->load();
 
 	Entity *ent = _sceneMgr->createEntity(_ogreMesh->getName());
+#ifdef SSAO_SUPPORT
+	ent->setMaterialName("Building_Material_SSAO");
+#else
 	ent->setMaterialName("Building_Material");
+#endif
 	_sceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 }

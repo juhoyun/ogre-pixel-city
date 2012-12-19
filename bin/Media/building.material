@@ -1,3 +1,4 @@
+import diffuse_template from "diffuse.material"
 material Ground_Material
 {
 	technique
@@ -16,8 +17,20 @@ material Building_Material
 	{
 		pass
 		{
-			ambient 0.3 0.3 0.33 
-			diffuse 0.7 0.7 0.67
+			ambient 0.5 0.5 0.5 
+			diffuse 0.6 0.6 0.6
+		}
+	}
+}
+
+material Building_Material_SSAO : diffuse_template
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.5 0.5 0.5 
+			diffuse 0.6 0.6 0.6
 		}
 	}
 }

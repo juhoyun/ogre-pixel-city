@@ -3,16 +3,41 @@
 #include "Ogre_Building.h"
 #include "world.h"
 
+#ifdef SSAO_SUPPORT
+#include "PFXSSAO.h"
+#endif
+
 using namespace Ogre;
 
 class TestListener : public ExampleFrameListener
 {
 protected:
-
+#ifdef SSAO_SUPPORT
+	PFXSSAO* mSSAO;
+#endif
 public:
+#ifdef SSAO_SUPPORT
+	TestListener(RenderWindow* win, Camera* cam, PFXSSAO* ssao)
+#else
 	TestListener(RenderWindow* win, Camera* cam)
+#endif
 		: ExampleFrameListener(win, cam)
 	{
+#ifdef SSAO_SUPPORT
+		mSSAO = ssao;
+#endif
+	}
+
+	virtual bool processUnbufferedKeyInput(const FrameEvent& evt)
+	{
+		if (!ExampleFrameListener::processUnbufferedKeyInput(evt))
+			return false;
+		if (mKeyboard->isKeyDown(OIS::KC_F1) && (mTimeUntilNextToggle <= 0))
+		{
+			mSSAO->toggle();
+			mTimeUntilNextToggle = 1;
+		}
+		return true;
 	}
 };
 
@@ -31,6 +56,9 @@ public:
 protected:
 
 	MovablePlane* mPlane;
+#ifdef SSAO_SUPPORT
+	PFXSSAO* mSSAO;
+#endif
 
 	void AppInit()
 	{
@@ -41,7 +69,11 @@ protected:
 	void createFrameListener(void)
 	{
 		// This is where we instantiate our own frame listener
+#ifdef SSAO_SUPPORT
+		mFrameListener = new TestListener(mWindow, mCamera, mSSAO);
+#else
 		mFrameListener = new TestListener(mWindow, mCamera);
+#endif
 		mRoot->addFrameListener(mFrameListener);
 	}
 
@@ -49,7 +81,7 @@ protected:
 	{
 		Light* gLight = mSceneMgr->createLight( "GlobalLight" );
 		gLight->setType(Light::LT_DIRECTIONAL);
-		gLight->setDirection(Vector3(-0.5f, -1, 0));
+		gLight->setDirection(Vector3(-0.5f, -1, -0.5f));
 
 		// Floor plane 
 		mPlane = new MovablePlane("Ground Plane");
@@ -66,6 +98,9 @@ protected:
 
 		mCamera->setPosition(0, 100, 100);
 		mCamera->lookAt(0, 0, 0);
+#ifdef SSAO_SUPPORT
+		mSSAO = new PFXSSAO(mWindow, mCamera);
+#endif
 	}
 };
 
