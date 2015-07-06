@@ -15,8 +15,8 @@ public:
 	Ogre_Mesh(Ogre::SceneManager *sm);
 	~Ogre_Mesh();
 
-	virtual void Render();
-	virtual void Compile();
+	virtual void Render() override;
+	virtual void Compile() override;
 };
 
 #endif
