@@ -4,7 +4,7 @@ This source file is part of OGRE
     (Object-oriented Graphics Rendering Engine)
 For the latest info, see http://www.ogre3d.org/
 
-Copyright (c) 2000-2009 Torus Knot Software Ltd
+Copyright (c) 2000-2013 Torus Knot Software Ltd
 Also see acknowledgements in Readme.html
 
 You may use this sample code for anything you like, it is not covered by the
@@ -43,6 +43,7 @@ D:        Step right
 #include "Ogre.h"
 #include "OgreStringConverter.h"
 #include "OgreException.h"
+#include "OgreOverlaySystem.h"
 
 
 //Use this define to signify OIS will be used as a DLL
@@ -52,7 +53,7 @@ D:        Step right
 
 using namespace Ogre;
 
-#ifdef USE_RTSHADER_SYSTEM
+#ifdef INCLUDE_RTSHADER_SYSTEM
 #include "OgreRTShaderSystem.h"
 #endif
 
@@ -104,7 +105,7 @@ public:
 		mAniso(1), mSceneDetailIndex(0), mMoveSpeed(100), mRotateSpeed(36), mDebugOverlay(0),
 		mInputManager(0), mMouse(0), mKeyboard(0), mJoy(0)
 	{
-
+		LogManager::getSingletonPtr()->logMessage("*** Initializing Overlay ***");
 		mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
 		LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
@@ -137,7 +138,7 @@ public:
 		WindowEventUtilities::addWindowEventListener(mWindow, this);		
 	}
 
-#ifdef USE_RTSHADER_SYSTEM
+#ifdef INCLUDE_RTSHADER_SYSTEM
 	virtual void processShaderGeneratorInput()
 	{		
 		// Switch to default scheme.
@@ -173,7 +174,7 @@ public:
 			if (userPerPixelLightModel)
 			{
 				RTShader::SubRenderState* perPixelLightModel = shaderGenerator->createSubRenderState(RTShader::PerPixelLighting::Type);
-				renderState->addSubRenderState(perPixelLightModel);
+				renderState->addTemplateSubRenderState(perPixelLightModel);
 
 				mDebugText = "Per pixel lighting model applied to shader generator default scheme";
 			}
@@ -340,14 +341,14 @@ public:
 		const OIS::MouseState &ms = mMouse->getMouseState();
 		if( ms.buttonDown( OIS::MB_Right ) )
 		{
-			mTranslateVector.x += ms.X.rel * 0.13f;
-			mTranslateVector.y -= ms.Y.rel * 0.13f;
+			mTranslateVector.x += ms.X.rel * 0.13;
+			mTranslateVector.y -= ms.Y.rel * 0.13;
 		}
 		else
 		{
-			mRotX = Degree(-ms.X.rel * 0.13f);
-			mRotY = Degree(-ms.Y.rel * 0.13f);
-#if OGRE_PLATFORM == OGRE_PLATFORM_IPHONE
+			mRotX = Degree(-ms.X.rel * 0.13);
+			mRotY = Degree(-ms.Y.rel * 0.13);
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
             // Adjust the input depending upon viewport orientation
             Radian origRotY, origRotX;
             switch(mCamera->getViewport()->getOrientation())
@@ -433,12 +434,12 @@ public:
 		}
 
 		//Check to see which device is not buffered, and handle it
-#if OGRE_PLATFORM != OGRE_PLATFORM_IPHONE
+#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE_IOS
 		if( !mKeyboard->buffered() )
 			if( processUnbufferedKeyInput(evt) == false )
 				return false;
 
-#ifdef USE_RTSHADER_SYSTEM
+#ifdef INCLUDE_RTSHADER_SYSTEM
 		processShaderGeneratorInput();
 #endif
 
@@ -451,7 +452,7 @@ public:
     	if (mTranslateVector == Ogre::Vector3::ZERO)
 		{
 			// decay (one third speed)
-			mCurrentSpeed -= evt.timeSinceLastFrame * 0.3f;
+			mCurrentSpeed -= evt.timeSinceLastFrame * 0.3;
 			mTranslateVector = lastMotion;
 		}
 		else
