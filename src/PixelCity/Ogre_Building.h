@@ -24,8 +24,9 @@ public:
 
 	virtual ~Ogre_Building();
 
+	virtual void			Init() override;
 	virtual void            Render() override;
-	virtual void            RenderFlat(bool colored);
+	virtual void            RenderFlat(bool colored) override;
 };
 
 #endif
