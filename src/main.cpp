@@ -34,7 +34,9 @@ public:
 			return false;
 		if (mKeyboard->isKeyDown(OIS::KC_F1) && (mTimeUntilNextToggle <= 0))
 		{
+#ifdef SSAO_SUPPORT
 			mSSAO->toggle();
+#endif
 			mTimeUntilNextToggle = 1;
 		}
 		return true;
